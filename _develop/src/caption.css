@@ -1,0 +1,31 @@
+#cap{
+  position:absolute;
+  left:10px;
+  border-radius:10px;
+  width:400px;
+  font-size:14px;
+  
+}
+#cap.hidden {
+  overflow: hidden;
+  padding:5px;
+  width:30px;
+  height:30px;
+  transition: width 1.0s ease, height 1.0s ease;
+}
+#cap.show {
+  padding:5px;
+  overflow: hidden;
+  width:250px;
+  height:180px;
+  transition: width 1.0s ease, height 1.0s ease;
+}
+.capMsg{
+  padding:5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height:30px;
+}
+
+

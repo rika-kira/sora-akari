@@ -1,0 +1,68 @@
+
+:root{
+  background-color:#ecdfc3;
+
+  --color-backGround:#ecdfc3;
+  --color-Button:#ceb88a;
+  --color-Button-right:#bba678;;
+  --color-border:#b9a67c;
+  --color-font:#534423;
+}
+
+html, body{
+  height:100%;
+  margin:0;
+}
+
+#root{
+  height:100%;
+}
+
+.stage{
+  height:100%;
+  display:grid;
+  grid-template-rows: 1fr 150px;
+  overflow:hidden;
+}
+.viewMessage{
+  min-height:200px;
+}
+.frames{
+  background-color:#bba678;
+  border-radius:10px;
+  margin:10px;
+  padding:10px;
+}
+.frames div{
+  padding-top:5px;
+}
+
+.textBox{
+  width:80%;
+  height:30px;
+}
+.button{
+  background-color: var(--color-backGround);
+  border-radius: 5px;
+  margin-right:5px;
+  padding:5px 10px 5px 10px;
+  display:inline-block;
+  cursor:pointer;
+}
+/*****************************/
+.floating-message {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  animation: floatY 4s ease-in-out infinite;
+}
+/* 揺れの定義 */
+@keyframes floatY {
+  0%   { transform: translateX(-50%) translateY(0); }
+  50%  { transform: translateX(-50%) translateY(-10px); }
+  100% { transform: translateX(-50%) translateY(0); }
+}
