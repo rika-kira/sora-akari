@@ -1,12 +1,18 @@
 import { useState } from 'react'
 import './AppSora.css'
 import Caption from './Caption.jsx';
+import CanvasMessages from './CanvasMessages.jsx';
+import State from './State.jsx';
 import {sendRequest,addMessageListener} from './common.js';
 
 function AppSora() {
   const [text, setText] = useState('');
   const [textBox, setTextBox] = useState(null);
-  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+  const [canvasKey, setCanvasKey] = useState(0);
+  const [lastSendTime, setLastSendTime] = useState(new Date());
+  const [isFirst , setIsFirst] = useState(true);
+  const [stateShow, setStateShow] = useState(false);
 
   //************************************************* */
   //送信
@@ -14,6 +20,12 @@ function AppSora() {
     if (textBox == null || textBox.value =="")
       return;
     //送信ロックは10s
+    console.log("stateShow:",stateShow);
+    if (stateShow){
+      return;
+    }
+    setIsFirst(false);
+    
     const data = {
       type: type,
       message: text
@@ -24,6 +36,8 @@ function AppSora() {
     }catch(err){
       console.log(err);
     }
+    setStateShow(true);
+    setLastSendTime(new Date());
     textBox.value = "";
     setText("");
   }
@@ -31,37 +45,51 @@ function AppSora() {
   //受信
   addMessageListener((event) => { 
     const datas = JSON.parse(event.data);
-    console.log("受信：",datas);
-    setMessages(messages => [...messages, datas.message]);
+    const messageData = {
+      type:datas.type,
+      message:datas.message,
+      start:new Date()
+    };
+    console.log("受信：",messageData);
+    setNewMessage(messageData);
+    
+    if (canvasKey>100){
+      setCanvasKey(0);
+    }else{
+      setCanvasKey(canvasKey + 1);
+    }
+
   });
   //************************************************* */
   //入力
-  function setTextBoxText(textBox){
-    setTextBox(textBox);
-    setText(textBox.value)
+  function setTextBoxText(_textBox){
+    setTextBox(_textBox);
+    setText(_textBox.value)
   }
   //************************************************* */
   return (
     <div className="stage">
       <div className="viewMessage">
         <Caption></Caption>
-          {messages.map((msg,index)=>(
-            <span key={index} className="floating-message">{msg}</span>
-          ))}
+        <CanvasMessages newMessage={newMessage}></CanvasMessages>
       </div>
         <div className="frames">
-        ここでメッセージを送信するよ<br/>
+        ここでメッセージを送信するよ
+        <span id="state">{stateShow && <State key={new Date()} 
+                                              startSeconds={10} 
+                                              onFinish={() => setStateShow(false)} />}
+        </span>
+        <br/>
         <div>
           <input type="text" 
                  className="textBox" 
                  placeholder="なにをおくろう..." 
+                 maxLength={30}
                  value={text}
                  onChange={(e) => setTextBoxText(e.target)}></input>
         </div>
         <div>
-          <span className='button' onClick={ () => sendMessage(1)}>とばす</span>
-          <span className='button' onClick={ () => sendMessage(2)}>ながす</span>
-          <span className='button' onClick={ () => sendMessage(3)}>おとす</span>
+          <span className='button' onClick={ () => sendMessage(1)}>おくる</span>
         </div>
       </div>
     </div>
