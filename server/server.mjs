@@ -92,7 +92,7 @@
         }
     }
     function getClient(ws){
-        const list = clients.filter(item => item != ws);
+        const list = clients.filter(item => item.socket != ws);
         if (list.length == 0)
         {
             return null;
