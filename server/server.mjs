@@ -15,7 +15,7 @@
     const clients = [];
     //クライアント→サーバ受信
     const port = 3000;
-    const portSocket = 3001;
+//    const portSocket = 3001;
     //サーバ→クライアント送信
     const socketServer = createServer();
     const webSocket = new WebSocketServer({noServer:true});
@@ -23,14 +23,16 @@
     //ポストを受け取れるようにする
     app.use(express.json());
     // clientフォルダを静的ファイルとして公開
-    app.use(express.static('../client'));
+//    app.use(express.static('../client'));
     //サーバ起動イベント
     app.listen(port, () => {
       console.log(`Server running`);
     });
+    /*
     socketServer.listen(portSocket, () => {
         console.log(`Server running ws`);
     });
+    */
     app.use((req, res) => {
       res.status(404).sendFile(path.join('https://rika-kira.github.io/sora-akari/', '404.html'));
     });
@@ -48,17 +50,20 @@
             webSocket.emit('connection', ws, req);
         });
     });
+    /*
     //クライアントの接続受け取り
     socketServer.on('upgrade', (req, socket, head) => {
         webSocket.handleUpgrade(req, socket, head, (ws) => {
             webSocket.emit('connection', ws, req);
         });
-    });
+        *
+    });*/
     // *************************************************
     //接続制御
     // *************************************************
     //クライアントの接続
-    webSocket.on('connection', (ws, req) =>{
+//    webSocket.on('connection', (ws, req) =>{
+    app.on('connection', (ws, req) =>{
         const clientId = generateUniqueId();
         clients.push({id:clientId, socket:ws});
         //クライアントからリクエスト
