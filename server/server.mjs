@@ -13,57 +13,31 @@
     //サーバ動作管理
     const app = express();
     const clients = [];
-    //クライアント→サーバ受信
-    const port = 3000;
-//    const portSocket = 3001;
-    //サーバ→クライアント送信
-    const socketServer = createServer();
+    const socketServer = createServer(app);
     const webSocket = new WebSocketServer({noServer:true});
 
-    //ポストを受け取れるようにする
-    app.use(express.json());
-    // clientフォルダを静的ファイルとして公開
-//    app.use(express.static('../client'));
-    //サーバ起動イベント
-    app.listen(port, () => {
-      console.log(`Server running`);
+    socketServer.on('upgrade', (req, socket, head) => {
+        webSocket.handleUpgrade(req, socket, head, (ws) => {
+            webSocket.emit('connection', ws, req);
+        });
     });
-    /*
-    socketServer.listen(portSocket, () => {
+
+    const port = Number(process.env.PORT) || 3000;
+    socketServer.listen(port, () => {
         console.log(`Server running ws`);
-    });
-    */
-    app.use((req, res) => {
-//      res.status(404).sendFile(path.join('https://rika-kira.github.io/sora-akari/404.html'));
     });
 
     // *************************************************
     //受信まとめ
     // *************************************************
-    function generateUniqueId() {
-        return 'id-' + Math.random().toString(36).substr(2, 9);
-    }
-    //クライアントの接続受け取り
-    app.on('upgrade', (req, socket, head) => {
-        console.log("クライアント接続検知app.on");
-        webSocket.handleUpgrade(req, socket, head, (ws) => {
-            webSocket.emit('connection', ws, req);
-        });
-    });
-    /*
-    //クライアントの接続受け取り
-    socketServer.on('upgrade', (req, socket, head) => {
-        webSocket.handleUpgrade(req, socket, head, (ws) => {
-            webSocket.emit('connection', ws, req);
-        });
-        *
-    });*/
     // *************************************************
     //接続制御
     // *************************************************
+    function generateUniqueId() {
+        return 'id-' + Math.random().toString(36).substr(2, 9);
+    }
     //クライアントの接続
-//    webSocket.on('connection', (ws, req) =>{
-    app.on('connection', (ws, req) =>{
+    webSocket.on('connection', (ws, req) =>{
         const clientId = generateUniqueId();
         clients.push({id:clientId, socket:ws});
         //クライアントからリクエスト
