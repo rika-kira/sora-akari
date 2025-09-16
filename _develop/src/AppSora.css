@@ -8,18 +8,16 @@
   --color-border:#b9a67c;
   --color-font:#534423;
 }
-
+/* 共通 */
 html, body{
   height:100%;
   width:100%;
   margin:0;
 }
-
 #root{
   height:99%;
   width:100%;
 }
-
 .stage{
   height:97%;
   width:99%;
@@ -43,7 +41,6 @@ html, body{
   padding-top:5px;
   box-sizing: border-box;
 }
-
 .textBox{
   width:80%;
   height:30px;
@@ -56,6 +53,20 @@ html, body{
   display:inline-block;
   cursor:pointer;
 }
+
+
+/* スマホ向け（最大幅768px） */
+@media screen and (max-width: 768px) {
+  html, body{
+    font-size:20px;
+  }
+  .textBox{
+    width:80%;
+    height:30px;
+    font-size:20px;
+  }
+}
+
 /*****************************/
 .floating-message {
   position: absolute;
@@ -67,6 +78,7 @@ html, body{
   font-size: 1.2rem;
   animation: floatY 4s ease-in-out infinite;
 }
+
 /* 揺れの定義 */
 @keyframes floatY {
   0%   { transform: translateX(-50%) translateY(0); }

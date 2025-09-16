@@ -27,5 +27,15 @@
   text-overflow: ellipsis;
   line-height:30px;
 }
-
+/* スマホ向け（最大幅768px） */
+@media screen and (max-width: 768px) {
+  #cap {
+    padding: 5px 5px;
+    width:700px;
+    font-size: 20px;
+  }
+  #cap.show {
+    width:350px;
+  }
+}
 
