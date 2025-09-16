@@ -38,8 +38,10 @@
     //クライアントの接続
     webSocket.on('connection', (ws, req) =>{
         const clientId = generateUniqueId();
-        console.log("connect clientId:" + clientId + " ip:" + ws.remoteAddress);
-        clients.push({id:clientId, socket:ws, ip:ws.remoteAddress});
+        const ipAddress = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || // プロキシ対応
+                          req.socket.remoteAddress;
+        console.log("connect clientId:" + clientId + " ip:" + ipAddress);
+        clients.push({id:clientId, socket:ws, ip:ipAddress});
         //クライアントからリクエスト
         ws.on('message', (msg) =>{
             let getData;
