@@ -19,7 +19,7 @@ export function sendRequest(data)
     try
     {
         socket.send(JSON.stringify(data));
-        return "OK";
+        return "send success";
     }
     catch(err)
     {

@@ -5,12 +5,15 @@
     import express              from 'express';
     import {WebSocketServer}    from 'ws';
     import {createServer}       from 'http';
+    import dotenv               from 'dotenv';
 
     // *************************************************
     //初期処理
     // *************************************************
+    dotenv.config();
     //サーバ動作管理
     const app = express();
+
     const clients = [];
     const socketServer = createServer(app);
     const webSocket = new WebSocketServer({noServer:true});
@@ -104,6 +107,5 @@
     process.on('SIGINT', async () => {
         console.log('server close...');
         app.delete;
-        pool.end();
         process.exit(0);
     });

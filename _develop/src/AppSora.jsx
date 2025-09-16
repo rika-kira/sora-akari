@@ -39,13 +39,15 @@ function AppSora() {
   //************************************************* */
   //受信
   addMessageListener((event) => { 
-    console.log("受信：",messageData);
+    console.log("受け取った");
     const datas = JSON.parse(event.data);
+    console.log("JSON.parse",event.data);
     const messageData = {
       type:datas.type,
       message:datas.message,
       start:new Date()
     };
+    console.log("受信：",messageData);
     setNewMessage(messageData);
     
     if (canvasKey>100){
