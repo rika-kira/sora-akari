@@ -63,7 +63,14 @@
         ws.on('close', () => {
             const index = clients.findIndex(client => client.id === ws.clientId);
             if (index !== -1) {
-            clients.splice(index, 1);
+                clients.splice(index, 1);
+            }
+        });
+        //クライアント接続終了
+        ws.on('end', () => {
+            const index = clients.findIndex(client => client.id === ws.clientId);
+            if (index !== -1) {
+                clients.splice(index, 1);
             }
         });
         //クライアント接続エラー
@@ -96,7 +103,7 @@
     function getClient(ws){
         console.log("client count:",clients.length);
         clients.forEach(item => {
-            console.log(item.socket.remoteAddress);
+            console.log(item.socket.re);
         });
         const list = clients.filter(item => item.socket != ws);
         if (list.length == 0)
