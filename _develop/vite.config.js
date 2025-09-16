@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [react()],
   base:'/client/',
   build:{
+    outDir: '../client',
     rollupOptions:{
       input:{
         main:resolve(__dirname, 'index.html'),
