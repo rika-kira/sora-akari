@@ -94,6 +94,7 @@
         }
     }
     function getClient(ws){
+        console.log("client count:",clients.length);
         const list = clients.filter(item => item.socket != ws);
         if (list.length == 0)
         {

@@ -1,6 +1,8 @@
 export const socket = new WebSocket("wss://sora-akari-server.onrender.com");
 
 socket.onopen = () =>{ }
+socket.onclose = (e) =>{console.log("onclose:",e);}
+socket.onerror = (e) =>{console.log("onerror:",e);}
 let isRelation = false;
 
 // メッセージ受信時のイベントを登録
