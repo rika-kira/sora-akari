@@ -1,5 +1,5 @@
 {
-  "homepage":"https://rika-kira.github.io/sora-akari/client",
+  "homepage":"https://rika-kira.github.io/sora-akari/",
   "scripts":{
     "deploy":"gh-pages -d ."
   },
