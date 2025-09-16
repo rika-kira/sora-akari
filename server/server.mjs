@@ -38,7 +38,7 @@
     //クライアントの接続
     webSocket.on('connection', (ws, req) =>{
         const clientId = generateUniqueId();
-        clients.push({id:clientId, socket:ws});
+        clients.push({id:clientId, socket:ws, ip:ws.remoteAddress});
         //クライアントからリクエスト
         ws.on('message', (msg) =>{
             let getData;
@@ -103,7 +103,7 @@
     function getClient(ws){
         console.log("client count:",clients.length);
         clients.forEach(item => {
-            console.log(item.socket.re);
+            console.log(item.socket.ip);
         });
         const list = clients.filter(item => item.socket != ws);
         if (list.length == 0)
