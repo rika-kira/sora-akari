@@ -22,7 +22,7 @@
         });
     });
 
-    const port = Number(process.env.PORT) || 3000;
+    const port = Number(process.env.PORT);
     socketServer.listen(port, () => {
         console.log(`Server running ws`);
     });
