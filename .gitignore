@@ -1,0 +1,4 @@
+#Gitコミット除外ファイル
+server/.env
+bk/
+

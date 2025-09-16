@@ -1,4 +1,4 @@
-export const socket = new WebSocket("ws://localhost:3001");
+export const socket = new WebSocket("wss://sora-akari-server.onrender.com");
 
 socket.onopen = () =>{ }
 let isRelation = false;

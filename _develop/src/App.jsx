@@ -6,7 +6,7 @@ function App() {
     <>
       <div className="title">そらあかり</div>
       <div className="enterBase">
-        <a href="/sora.html"><p className="enter">はいる</p></a>
+        <a href="sora.html"><p className="enter">はいる</p></a>
       </div>
     </>
   )

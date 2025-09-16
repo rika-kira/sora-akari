@@ -5,13 +5,12 @@ import { resolve } from 'path';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base:'/client/',
+  base:'/sora-akari/',
   build:{
     outDir: '../client',
     rollupOptions:{
       input:{
         main:resolve(__dirname, 'index.html'),
-        sora:resolve(__dirname, 'sora.html'),
       }
     }
   }

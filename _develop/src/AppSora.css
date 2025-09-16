@@ -11,30 +11,37 @@
 
 html, body{
   height:100%;
+  width:100%;
   margin:0;
 }
 
 #root{
-  height:100%;
+  height:99%;
+  width:100%;
 }
 
 .stage{
-  height:100%;
+  height:97%;
+  width:99%;
   display:grid;
   grid-template-rows: 1fr 150px;
-  overflow:hidden;
+  padding:10px;
+  box-sizing: border-box;
 }
 .viewMessage{
   min-height:200px;
+  box-sizing: border-box;
 }
 .frames{
   background-color:#bba678;
   border-radius:10px;
-  margin:10px;
   padding:10px;
+  width:97%;
+  box-sizing: border-box;
 }
 .frames div{
   padding-top:5px;
+  box-sizing: border-box;
 }
 
 .textBox{

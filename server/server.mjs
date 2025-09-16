@@ -5,7 +5,6 @@
     import express              from 'express';
     import {WebSocketServer}    from 'ws';
     import {createServer}       from 'http';
-    import path                 from 'path';
 
     // *************************************************
     //初期処理
@@ -28,9 +27,6 @@
     });
 
     // *************************************************
-    //受信まとめ
-    // *************************************************
-    // *************************************************
     //接続制御
     // *************************************************
     function generateUniqueId() {
@@ -51,7 +47,7 @@
             }
             catch(err)
             {
-                console.log("【JSON.parse Err】", err);
+                console.log("JSON.parse Err ", err);
                 return;
             }
             const type = getData.type;
@@ -69,7 +65,7 @@
         });
         //クライアント接続エラー
         ws.on('error', (err) =>{
-            console.log("【接続エラー】", err);
+            console.log("onOpen err ", err);
         });
     });
 
@@ -85,10 +81,13 @@
             try
             {
                 await client.socket.send(sendData);
+                console.log("another send..");
             }catch(err)
             {
-                console.log("【sendClient err】", err);
+                console.log("sendClient err ", err);
             }
+        }else{
+            console.log("alone..");
         }
     }
     function getClient(ws){
@@ -103,7 +102,7 @@
 
     //サーバ終了
     process.on('SIGINT', async () => {
-        console.log('サーバを終了します....');
+        console.log('server close...');
         app.delete;
         pool.end();
         process.exit(0);

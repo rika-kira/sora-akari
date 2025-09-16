@@ -67,9 +67,6 @@ const CanvasMessages = React.memo(({newMessage}) => {
       // ピクセルサイズを親に合わせる
       canvas.width = width;
       canvas.height = height;
-      // CSSサイズも合わせる（念のため）
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 

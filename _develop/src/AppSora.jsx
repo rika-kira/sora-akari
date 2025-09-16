@@ -10,8 +10,6 @@ function AppSora() {
   const [textBox, setTextBox] = useState(null);
   const [newMessage, setNewMessage] = useState('');
   const [canvasKey, setCanvasKey] = useState(0);
-  const [lastSendTime, setLastSendTime] = useState(new Date());
-  const [isFirst , setIsFirst] = useState(true);
   const [stateShow, setStateShow] = useState(false);
 
   //************************************************* */
@@ -20,11 +18,9 @@ function AppSora() {
     if (textBox == null || textBox.value =="")
       return;
     //送信ロックは10s
-    console.log("stateShow:",stateShow);
     if (stateShow){
       return;
     }
-    setIsFirst(false);
     
     const data = {
       type: type,
@@ -37,20 +33,19 @@ function AppSora() {
       console.log(err);
     }
     setStateShow(true);
-    setLastSendTime(new Date());
     textBox.value = "";
     setText("");
   }
   //************************************************* */
   //受信
   addMessageListener((event) => { 
+    console.log("受信：",messageData);
     const datas = JSON.parse(event.data);
     const messageData = {
       type:datas.type,
       message:datas.message,
       start:new Date()
     };
-    console.log("受信：",messageData);
     setNewMessage(messageData);
     
     if (canvasKey>100){
@@ -73,7 +68,7 @@ function AppSora() {
         <Caption></Caption>
         <CanvasMessages newMessage={newMessage}></CanvasMessages>
       </div>
-        <div className="frames">
+      <div className="frames">
         ここでメッセージを送信するよ
         <span id="state">{stateShow && <State key={new Date()} 
                                               startSeconds={10} 
