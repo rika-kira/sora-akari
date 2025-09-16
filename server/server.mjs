@@ -95,6 +95,9 @@
     }
     function getClient(ws){
         console.log("client count:",clients.length);
+        clients.forEach(item => {
+            console.log(item.socket.remoteAddress);
+        });
         const list = clients.filter(item => item.socket != ws);
         if (list.length == 0)
         {
