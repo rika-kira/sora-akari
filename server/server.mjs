@@ -38,6 +38,7 @@
     //クライアントの接続
     webSocket.on('connection', (ws, req) =>{
         const clientId = generateUniqueId();
+        console.log("connect clientId:" + clientId + " ip:" + ws.remoteAddress);
         clients.push({id:clientId, socket:ws, ip:ws.remoteAddress});
         //クライアントからリクエスト
         ws.on('message', (msg) =>{
@@ -63,6 +64,7 @@
         ws.on('close', () => {
             const index = clients.findIndex(client => client.id === ws.clientId);
             if (index !== -1) {
+                console.log("close clientId:" + clients[index].id + " ip:" + clients[index].ip);
                 clients.splice(index, 1);
             }
         });
@@ -70,12 +72,17 @@
         ws.on('end', () => {
             const index = clients.findIndex(client => client.id === ws.clientId);
             if (index !== -1) {
+                console.log("end clientId:" + clients[index].id + " ip:" + clients[index].ip);
                 clients.splice(index, 1);
             }
         });
         //クライアント接続エラー
         ws.on('error', (err) =>{
-            console.log("onOpen err ", err);
+            const index = clients.findIndex(client => client.id === ws.clientId);
+            if (index !== -1) {
+                console.log("err clientId:" + clients[index].id + " ip:" + clients[index].ip);
+                console.log(err);
+            }
         });
     });
 
@@ -103,7 +110,7 @@
     function getClient(ws){
         console.log("client count:",clients.length);
         clients.forEach(item => {
-            console.log(item.socket.ip);
+            console.log(item.ip);
         });
         const list = clients.filter(item => item.socket != ws);
         if (list.length == 0)
