@@ -34,7 +34,7 @@
     });
     */
     app.use((req, res) => {
-      res.status(404).sendFile(path.join('https://rika-kira.github.io/sora-akari/', '404.html'));
+      res.status(404).sendFile(path.join('https://rika-kira.github.io/sora-akari/404.html'));
     });
 
     // *************************************************
