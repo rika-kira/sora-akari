@@ -100,7 +100,8 @@
             try
             {
                 await client.socket.send(sendData);
-                console.log("send.. " + ws.ip + " => " + client.ip);
+                const index = clients.findIndex(client => client.id === ws.clientId);
+                console.log("send.. " + clients[index].ip + " => " + client.ip);
             }catch(err)
             {
                 console.log("sendClient err ", err);
