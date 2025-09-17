@@ -64,7 +64,7 @@
         });
         //クライアント接続終了
         ws.on('close', () => {
-            const index = clients.findIndex(client => client.id === ws.clientId);
+            const index = clients.findIndex(client => client.id == ws.clientId);
             if (index !== -1) {
                 console.log("close clientId:" + clients[index].id + " ip:" + clients[index].ip);
                 clients.splice(index, 1);
@@ -72,7 +72,7 @@
         });
         //クライアント接続終了
         ws.on('end', () => {
-            const index = clients.findIndex(client => client.id === ws.clientId);
+            const index = clients.findIndex(client => client.id == ws.clientId);
             if (index !== -1) {
                 console.log("end clientId:" + clients[index].id + " ip:" + clients[index].ip);
                 clients.splice(index, 1);
@@ -80,7 +80,7 @@
         });
         //クライアント接続エラー
         ws.on('error', (err) =>{
-            const index = clients.findIndex(client => client.id === ws.clientId);
+            const index = clients.findIndex(client => client.id == ws.clientId);
             if (index !== -1) {
                 console.log("err clientId:" + clients[index].id + " ip:" + clients[index].ip);
                 console.log(err);
@@ -100,7 +100,7 @@
             try
             {
                 await client.socket.send(sendData);
-                const index = clients.findIndex(client => client.id === ws.clientId);
+                const index = clients.findIndex(client => client.id == ws.clientId);
                 console.log("send.. " + clients[index].ip + " => " + client.ip);
             }catch(err)
             {
