@@ -100,7 +100,7 @@
             try
             {
                 await client.socket.send(sendData);
-                console.log("send.. " + ms.ip + " => " + client.ip);
+                console.log("send.. " + ws.ip + " => " + client.ip);
             }catch(err)
             {
                 console.log("sendClient err ", err);
