@@ -59,7 +59,7 @@
             const type = getData.type;
             const message = getData.message;
 
-            sendClient(ws, type, message);
+            sendClient(ws, clientId, type, message);
             
         });
         //クライアント接続終了
@@ -92,7 +92,7 @@
     //送信
     // *************************************************
     //クライアントに送信
-    async function sendClient(ws, type, message)
+    async function sendClient(ws, id, type, message)
     {
         const sendData = JSON.stringify({type:type, message:message});
         const client = getClient(ws);
@@ -100,7 +100,7 @@
             try
             {
                 await client.socket.send(sendData);
-                const index = clients.findIndex(client => client.id == ws.clientId);
+                const index = clients.findIndex(client => client.id == id);
                 console.log("send.. " + clients[index].ip + " => " + client.ip);
             }catch(err)
             {
